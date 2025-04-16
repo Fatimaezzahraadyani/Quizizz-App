@@ -1,2 +1,6 @@
 <app-navbar></app-navbar>
-<app-homepage></app-homepage>
+<!-- app.component.html -->
+<app-homepage *ngIf="!pseudoSubmitted" (pseudoSubmitted)="handlePseudo($event)"></app-homepage>
+
+<app-accueil *ngIf="pseudoSubmitted" [pseudo]="pseudoValue"></app-accueil>
+ 

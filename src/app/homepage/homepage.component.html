@@ -16,13 +16,20 @@
       </div>
   
       <!-- Form -->
-      <form>
+      <form (ngSubmit)="onSubmit()" #pseudoForm="ngForm">
         <label>
-          Psuedo
-          <input type="name" required />
+          Pseudo
+          <input
+            type="text"
+            required
+            name="pseudo"
+            [(ngModel)]="pseudo"
+            class="form-control"
+          />
         </label>
-        <button type="button">Submit</button>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
       </form>
+      
   
       <!-- Rotating Cube -->
       <div class="cube-wrapper">

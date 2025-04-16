@@ -1,0 +1,56 @@
+<div class="container py-5">
+    <div class="card-wrapper">
+      <!-- Shades -->
+      <div class="shades">
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+        <div class="shade"></div>
+      </div>
+  
+      <!-- Form for Category & Difficulty -->
+      <form (ngSubmit)="onSubmit()">
+        <p class="mb-3 text-white">Bonjour <strong>{{ pseudo }}</strong>, choisis tes préférences :</p>
+  
+        <label class="form-label text-white">
+          Catégorie
+          <select [(ngModel)]="category" name="category" class="form-control" required>
+            <option value="">Choisir une catégorie</option>
+            <option value="9">Culture générale</option>
+            <option value="18">Informatique</option>
+            <option value="23">Histoire</option>
+          </select>
+        </label>
+  
+        <label class="form-label mt-3 text-white">
+          Difficulté
+          <select [(ngModel)]="difficulty" name="difficulty" class="form-control" required>
+            <option value="">Choisir une difficulté</option>
+            <option value="easy">Facile</option>
+            <option value="medium">Moyen</option>
+            <option value="hard">Difficile</option>
+          </select>
+        </label>
+  
+        <button type="submit" class="btn btn-primary mt-4">Commencer</button>
+      </form>
+  
+      <!-- Cube Animation -->
+      <div class="cube-wrapper">
+        <div class="cube">
+          <div class="face"></div>
+          <div class="face"></div>
+          <div class="face"></div>
+          <div class="face"></div>
+          <div class="face"></div>
+          <div class="face"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
