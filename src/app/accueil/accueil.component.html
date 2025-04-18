@@ -17,15 +17,17 @@
       <form (ngSubmit)="onSubmit()">
         <p class="mb-3 text-white">Bonjour <strong>{{ pseudo }}</strong>, choisis tes préférences :</p>
   
-        <label class="form-label text-white">
-          Catégorie
-          <select [(ngModel)]="category" name="category" class="form-control" required>
-            <option value="">Choisir une catégorie</option>
-            <option value="9">Culture générale</option>
-            <option value="18">Informatique</option>
-            <option value="23">Histoire</option>
-          </select>
-        </label>
+
+        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Catégorie
+      <select id="category" name="category" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      [(ngModel)] ="category"  
+      >
+        <option value="">select a category</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+
+      </select>
+    </label>
+      
   
         <label class="form-label mt-3 text-white">
           Difficulté
@@ -37,7 +39,8 @@
           </select>
         </label>
   
-        <button type="submit" class="btn btn-primary mt-4">Commencer</button>
+        <button type="submit">Continuer</button>
+
       </form>
   
       <!-- Cube Animation -->

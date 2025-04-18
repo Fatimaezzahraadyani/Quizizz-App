@@ -2,5 +2,26 @@
 <!-- app.component.html -->
 <app-homepage *ngIf="!pseudoSubmitted" (pseudoSubmitted)="handlePseudo($event)"></app-homepage>
 
-<app-accueil *ngIf="pseudoSubmitted" [pseudo]="pseudoValue"></app-accueil>
+<app-accueil *ngIf="pseudoSubmitted && !quizzStarted"  
+[pseudo]="pseudoValue" 
+(categoryChosen)="selectedCategory = $event"
+(difficultyChosen)="selectedDifficulty = $event"
+(QuizzLaunched)="startQuizz()">
+</app-accueil>
+<!-- <app-accueil
+*ngIf="pseudoSubmitted && !quizzStarted"
+[pseudo]="pseudoValue"
+(categoryChosen)="selectedCategory = $event"
+(difficultyChosen)="selectedDifficulty = $event"
+(QuizzLaunched)="startQuizz()">
+</app-accueil> -->
+
+<app-quizz 
+  *ngIf="quizzStarted"
+  [category]="selectedCategory"
+  [difficulty]="selectedDifficulty">
+</app-quizz>
+
+
+
  

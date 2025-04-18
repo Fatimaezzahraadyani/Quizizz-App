@@ -1,0 +1,13 @@
+<div class="container mt-4" *ngIf="questions.length > 0">
+  <h3>Question {{ currentIndex + 1 }} sur {{ questions.length }}</h3>
+
+  <div class="card p-3">
+    <p [innerHTML]="questions[currentIndex].question"></p>
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let answer of getShuffledAnswers(questions[currentIndex])">
+        {{ answer }}
+      </li>
+    </ul>
+  </div>
+</div>
