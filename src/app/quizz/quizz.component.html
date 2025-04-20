@@ -1,13 +1,62 @@
-<div class="container mt-4" *ngIf="questions.length > 0">
-  <h3>Question {{ currentIndex + 1 }} sur {{ questions.length }}</h3>
-
-  <div class="card p-3">
-    <p [innerHTML]="questions[currentIndex].question"></p>
-
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let answer of getShuffledAnswers(questions[currentIndex])">
-        {{ answer }}
-      </li>
-    </ul>
+<div class="container py-5 text-white" *ngIf="questions.length > 0" style="color: black;" >
+  <!-- En‑tête question -->
+  <div class="mb-4" >
+    <h4 style="color: black;">Question {{ currentIndex + 1 }} / {{ questions.length }}</h4>
+    <p [innerHTML]="questions[currentIndex].question" style="color: black;"></p>
   </div>
+
+  <!-- Formulaire avant validation -->
+  <form (ngSubmit)="submitAnswer()" *ngIf="!answerChecked">
+    <div *ngFor="let ans of getAnswers()">
+      <label class="d-block mb-2 p-2 rounded bg-light text-dark">
+        <input
+          type="radio"
+          name="selectedAnswer"
+          [value]="ans"
+          [(ngModel)]="selectedAnswer"
+          required
+          class="me-2"
+        />
+        {{ ans }}
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3" [disabled]="!selectedAnswer">
+      Valider
+    </button>
+  </form>
+
+  <!-- Affichage après validation -->
+  <div *ngIf="answerChecked" class="mt-4">
+    <div *ngFor="let ans of getAnswers()">
+      <div
+        class="d-block mb-2 p-2 rounded"
+        [ngClass]="{
+          'bg-success text-white': ans === questions[currentIndex].correct_answer,
+          'bg-danger text-white': ans === selectedAnswer && ans !== questions[currentIndex].correct_answer,
+          'bg-light text-dark': ans !== selectedAnswer && ans !== questions[currentIndex].correct_answer
+        }"
+      >
+        {{ ans }}
+      </div>
+    </div>
+
+    <p class="mt-3" [ngClass]="{ 'text-success': isCorrect, 'text-danger': !isCorrect }">
+      {{ isCorrect ? 'Bonne réponse ! 🎉' : 'Mauvaise réponse 😢' }}
+    </p>
+
+    <button
+      *ngIf="currentIndex < questions.length - 1"
+      class="btn btn-secondary mt-2"
+      (click)="nextQuestion()"
+    >
+      Question suivante
+    </button>
+    <p *ngIf="currentIndex === questions.length - 1" class="mt-4" style="color: black;">
+      🎓 Quiz terminé !
+    </p>
+  </div>
+</div>
+
+<div *ngIf="questions.length === 0" class="text-white text-center py-5">
+  Chargement des questions…
 </div>

@@ -17,7 +17,8 @@ import { QuizzComponent } from './quizz/quizz.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
- // title = 'Quizizz-Angular';
+  
+  title = 'Quizizz-Angular';
   pseudoSubmitted = false;
   pseudoValue: string='';
   quizzStarted : boolean = false;

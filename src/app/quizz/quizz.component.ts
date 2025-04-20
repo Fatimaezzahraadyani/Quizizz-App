@@ -1,12 +1,13 @@
 import { Component,OnInit ,Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { QuizzService } from '../quizz.service';
 import { HttpClient,HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-quizz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './quizz.component.html',
   styleUrl: './quizz.component.css'
 })
@@ -19,6 +20,10 @@ export class QuizzComponent implements OnInit {
 
   questions: any[] = [];
   currentIndex: number = 0;
+  selectedAnswer: string = '';
+  answerChecked: boolean = false;
+  isCorrect: boolean | null = null;
+
   
   ngOnInit() {
     const url = `https://opentdb.com/api.php?amount=10
@@ -26,17 +31,42 @@ export class QuizzComponent implements OnInit {
     &difficulty=${this.difficulty}&type=multiple`;
     
     fetch(url)
-      .then(res => res.json())
+      .then(res => res.json())//	Transforme la réponse en objet
       .then(data => {
+        
         this.questions = data.results;
         console.log(this.questions);
       });
   }
 
-  getShuffledAnswers(question: any): string[] {
-    const answers = [...question.incorrect_answers, question.correct_answer];
-    return answers.sort(() => Math.random() - 0.5);
+  getAnswers(): string[] {
+    const q = this.questions[this.currentIndex];
+    return [q.correct_answer, ...q.incorrect_answers];
   }
+
+
+  submitAnswer() {
+    const currentQuestion = this.questions[this.currentIndex];
+    this.isCorrect = this.selectedAnswer === currentQuestion.correct_answer;
+    this.answerChecked = true;
+  
+    console.log('Réponse sélectionnée :', this.selectedAnswer);
+    console.log('Bonne réponse :', currentQuestion.correct_answer);
+    console.log(this.isCorrect ? 'Bonne réponse !' : 'Mauvaise réponse !');
+  }
+  
+
+  nextQuestion() {
+    this.currentIndex++;
+    this.selectedAnswer = '';
+    this.answerChecked = false;
+    this.isCorrect = false;
+  }
+  
+  // getShuffledAnswers(question: any): string[] {
+  //   const answers = [...question.incorrect_answers, question.correct_answer];
+  //   return answers.sort(() => Math.random() - 0.5);
+  // }
   
   
 
